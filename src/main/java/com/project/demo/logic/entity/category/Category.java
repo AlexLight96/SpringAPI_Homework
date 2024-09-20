@@ -4,15 +4,19 @@ package com.project.demo.logic.entity.category;
 import jakarta.persistence.*;
 
 
-@Table(name = "product")
+@Table(name = "category")
 @Entity
 public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false)
     private Integer id;
 
+    @Column(unique = true, nullable = false)
     private String name;
+
+    @Column(unique = true, nullable = false)
     private String description;
 
     // Constructor
@@ -37,6 +41,8 @@ public class Category {
     public String getDescription(){
         return description;
     }
-
+    public void setDescription(String description){
+        this.description = description;
+    }
 
 }

@@ -17,12 +17,14 @@ public class UserRestController {
     @Autowired
     private UserRepository UserRepository;
 
+
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     @GetMapping
     @PreAuthorize("hasAnyRole('ADMIN', 'SUPER_ADMIN')")
     public List<User> getAllUsers() {
+
         return UserRepository.findAll();
     }
 
@@ -31,6 +33,7 @@ public class UserRestController {
     public User addUser(@RequestBody User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return UserRepository.save(user);
+
     }
 
     @GetMapping("/{id}")

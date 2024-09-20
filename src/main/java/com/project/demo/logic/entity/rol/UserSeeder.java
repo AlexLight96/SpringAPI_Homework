@@ -37,9 +37,9 @@ public class UserSeeder  implements ApplicationListener<ContextRefreshedEvent> {
 
     private void createUser() {
         User newUser = new User();
-        newUser.setName("User");
-        newUser.setLastname("normal");
-        newUser.setEmail("normal.user@gmail.com");
+        newUser.setName("Regular");
+        newUser.setLastname("user");
+        newUser.setEmail("regular.user@gmail.com");
         newUser.setPassword("user123");
 
         Optional<Role> optionalRole = roleRepository.findByName(RoleEnum.USER);
@@ -49,14 +49,14 @@ public class UserSeeder  implements ApplicationListener<ContextRefreshedEvent> {
             return;
         }
 
-        var user = new User();
-        user.setName(newUser.getName());
-        user.setLastname(newUser.getLastname());
-        user.setEmail(newUser.getEmail());
-        user.setPassword(passwordEncoder.encode(newUser.getPassword()));
-        user.setRole(optionalRole.get());
+        var regular_user = new User();
+        regular_user.setName(newUser.getName());
+        regular_user.setLastname(newUser.getLastname());
+        regular_user.setEmail(newUser.getEmail());
+        regular_user.setPassword(passwordEncoder.encode(newUser.getPassword()));
+        regular_user.setRole(optionalRole.get());
 
-        userRepository.save(user);
+        userRepository.save(regular_user);
     }
 
 
