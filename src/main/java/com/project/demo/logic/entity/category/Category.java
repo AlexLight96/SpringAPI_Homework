@@ -3,9 +3,8 @@ package com.project.demo.logic.entity.category;
 
 import jakarta.persistence.*;
 
-
-@Table(name = "category")
 @Entity
+@Table(name = "category")
 public class Category {
 
     @Id

@@ -8,6 +8,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/category")
@@ -15,16 +16,11 @@ public class CategoryRestController {
     @Autowired
     private CategoryRepository categoryRepository;
 
-
     @PostMapping
     @PreAuthorize("hasAnyRole('SUPER_ADMIN')")
     public Category addCategory(@RequestBody Category category) {
         return categoryRepository.save(category);
     }
-
-
-
-
 
     @GetMapping
     @PreAuthorize("isAuthenticated()")
@@ -37,8 +33,8 @@ public class CategoryRestController {
     public Category updateCategory(@PathVariable Integer id, @RequestBody Category category) {
         return categoryRepository.findById(id)
                 .map(existingCategory -> {
-                    existingCategory.setName(category.getName());
-                    existingCategory.setDescription(category.getDescription());
+                    Optional.ofNullable(category.getName()).ifPresent(existingCategory::setName);
+                    Optional.ofNullable(category.getDescription()).ifPresent(existingCategory::setDescription);
                     return categoryRepository.save(existingCategory);
                 })
                 .orElseGet(() -> {
@@ -46,7 +42,6 @@ public class CategoryRestController {
                     return categoryRepository.save(category);
                 });
     }
-
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAnyRole('SUPER_ADMIN')")
