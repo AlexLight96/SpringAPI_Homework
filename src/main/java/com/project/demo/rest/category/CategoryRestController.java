@@ -17,7 +17,7 @@ public class CategoryRestController {
     private CategoryRepository categoryRepository;
 
     @PostMapping
-    @PreAuthorize("hasAnyRole('SUPER_ADMIN')")
+    @PreAuthorize("hasAnyRole( 'SUPER_ADMIN')")
     public Category addCategory(@RequestBody Category category) {
         return categoryRepository.save(category);
     }
